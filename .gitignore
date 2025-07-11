@@ -1,0 +1,4 @@
+node_modules
+.env
+eslint.config.js
+*.rar
