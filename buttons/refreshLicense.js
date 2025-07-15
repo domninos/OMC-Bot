@@ -1,6 +1,5 @@
+import { createLicenseEmbed } from "../embeds/other_embeds.js";
 import { get_all } from "../loaders/api-loader.js";
-
-import { createLicenseEmbed } from "../util/embed-builder.js";
 
 export async function refresh_license_func(interaction, guild, member) {
   const [, , plugin, key] = interaction.customId.split("_");

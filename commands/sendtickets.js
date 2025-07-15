@@ -3,8 +3,7 @@ import {
   PermissionFlagsBits,
   SlashCommandBuilder,
 } from "discord.js";
-
-import { createTicketContainer } from "../util/embed-builder.js";
+import { createTicketContainer } from "../embeds/commission_embeds.js";
 
 export const data = new SlashCommandBuilder()
   .setName("sendtickets")

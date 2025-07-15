@@ -1,6 +1,5 @@
+import { createCounterEmbed } from "../embeds/quote_embeds.js";
 import { ids } from "../util/botOptions.js";
-
-import { createCounterEmbed } from "../util/embed-builder.js";
 
 export async function counter(interaction, guild, member) {
   const [, sender_id] = interaction.customId.split("_");

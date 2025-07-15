@@ -13,8 +13,7 @@ import {
   register_license,
   update_value,
 } from "../loaders/api-loader.js";
-
-import { createLicenseEmbed } from "../util/embed-builder.js";
+import { createLicenseEmbed } from "../embeds/other_embeds.js";
 
 // TODO other plugins
 const choices = {

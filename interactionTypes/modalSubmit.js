@@ -3,10 +3,12 @@ import { ids } from "../util/botOptions.js";
 import {
   createCommissionEmbed,
   createFirstCommEmbeds,
+} from "../embeds/commission_embeds.js";
+import {
   createQuoteEmbed,
   createQuotingEmbed,
   createThreadEmbed,
-} from "../util/embed-builder.js";
+} from "../embeds/quote_embeds.js";
 
 export async function executeModalSubmit(interaction, guild, member) {
   if (interaction.customId === "commission-form") {
