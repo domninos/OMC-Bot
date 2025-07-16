@@ -1,6 +1,10 @@
 import { MessageFlags } from "discord.js";
 
-import { plugin_row_btn, plugin_row_menu } from "../util/botOptions.js";
+import {
+  options,
+  plugin_row_btn,
+  plugin_row_menu,
+} from "../util/botOptions.js";
 
 export async function plugin_clear(interaction, guild, member) {
   const roles = await Promise.all(

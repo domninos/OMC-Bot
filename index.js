@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, GatewayIntentBits, Partials } from "discord.js";
 
 const client = new Client({
   intents: [
@@ -13,6 +13,7 @@ const client = new Client({
     GatewayIntentBits.GuildWebhooks,
     GatewayIntentBits.MessageContent,
   ],
+  partials: [Partials.Message, Partials.Channel, Partials.Reaction],
 });
 
 // deploy commands to discord api

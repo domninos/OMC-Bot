@@ -3,6 +3,8 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  ContainerBuilder,
+  MessageFlags,
 } from "discord.js";
 
 export function formatTimestamp(timestamp) {
@@ -93,5 +95,25 @@ export function createLicenseEmbed(plugin, licenseData, user) {
   return {
     embeds: [licenseEmbed],
     components: [refresh_revoke],
+  };
+}
+
+export function createRolesEmbed() {
+  const roles = new ContainerBuilder()
+    .setAccentColor(0x00d4aa)
+    .addTextDisplayComponents((textDisplay) =>
+      textDisplay.setContent(
+        "Welcome to **OMC**! Please react to any of the following to unlock the server."
+      )
+    )
+    .addSeparatorComponents((separator) => separator)
+    .addTextDisplayComponents((textDisplay) =>
+      textDisplay.setContent("📟 - NearChat")
+    );
+
+  return {
+    components: [roles],
+    flags: MessageFlags.IsComponentsV2,
+    withResponse: true,
   };
 }

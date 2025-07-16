@@ -1,10 +1,11 @@
 import {
   InteractionContextType,
+  MessageFlags,
   PermissionFlagsBits,
   SlashCommandBuilder,
 } from "discord.js";
 
-import { plugin_row_menu, plugin_row_btn } from "../util/botOptions.js";
+import { createRolesEmbed } from "../embeds/other_embeds.js";
 
 export const data = new SlashCommandBuilder()
   .setName("sendroles")
@@ -18,15 +19,15 @@ export const data = new SlashCommandBuilder()
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
   .setContexts(InteractionContextType.Guild);
 
-// TODO parse args[0] and that should be the text channel
-
 export async function execute(interaction) {
-  await interaction.reply("Success!");
+  await interaction.reply({
+    content: "Success!",
+    flags: MessageFlags.Ephemeral,
+  });
 
   const channel = interaction.options.getChannel("channel");
 
-  await channel.send({
-    content: "Click to receive the role:",
-    components: [plugin_row_menu, plugin_row_btn],
+  channel.send(createRolesEmbed()).then((message) => {
+    message.react("📟"); // NearChat
   });
 }

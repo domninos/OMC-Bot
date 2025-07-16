@@ -66,8 +66,6 @@ export function createCounterEmbed(sender, counter, commission_channel) {
       inline: false,
     })
 
-    .addFields({ name: "\u200b", value: "\u200b", inline: false })
-
     .addFields({
       name: "",
       value: "If you like this counter offer, click the Accept button.",

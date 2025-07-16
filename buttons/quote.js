@@ -1,4 +1,9 @@
-import { ModalBuilder, ActionRowBuilder, TextInputStyle } from "discord.js";
+import {
+  ModalBuilder,
+  ActionRowBuilder,
+  TextInputBuilder,
+  TextInputStyle,
+} from "discord.js";
 
 export async function quote_func(interaction, guild, member) {
   const [, commission_channel] = interaction.customId.split("_");
