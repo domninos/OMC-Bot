@@ -99,6 +99,16 @@ export async function executeModalSubmit(interaction, guild, member) {
           });
       });
 
+    commissionChannel
+      .send({
+        content: `${member}`,
+      })
+      .then((msg) => {
+        setTimeout(() => {
+          msg.delete().catch(console.error);
+        }, 3000); // 3 seconds
+      });
+
     await commissionChannel.send(
       createFirstCommEmbeds(budget, time_frame, description)
     );
@@ -107,6 +117,16 @@ export async function executeModalSubmit(interaction, guild, member) {
 
     const commissionChannel = await guild.channels.fetch(commission_channel);
     const quote = interaction.fields.getTextInputValue("quoting");
+
+    commissionChannel
+      .send({
+        content: `${member}`,
+      })
+      .then((msg) => {
+        setTimeout(() => {
+          msg.delete().catch(console.error);
+        }, 3000);
+      });
 
     await interaction.reply(createQuotingEmbed(quote));
 

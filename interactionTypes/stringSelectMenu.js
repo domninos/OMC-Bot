@@ -1,52 +1,14 @@
 import { MessageFlags, PermissionsBitField } from "discord.js";
 
-import { plugin_row_menu, plugin_row_btn, ids } from "../util/botOptions.js";
+import { ids } from "../util/botOptions.js";
 import { createArchiveEmbed } from "../embeds/archive_embeds.js";
 
 export async function executeSelectMenu(interaction, guild, member) {
-  if (interaction.customId === "plugins_menu") {
-    try {
-      const values = interaction.values;
-
-      const roles = await values
-        .map(async (v) => {
-          let role = await guild.roles.fetch(v);
-
-          if (!member.roles.cache.has(role.id)) {
-            await member.roles.add(role);
-          }
-
-          return role;
-        })
-        .map((role) => {
-          return role.id;
-        })
-        .map((role) => console.log(role));
-
-      await interaction.update({
-        content: "Click to receive the role:",
-        components: [plugin_row_menu, plugin_row_btn],
-        flags: MessageFlags.Ephemeral,
-      });
-
-      if (roles.size > 0) {
-        await interaction.followUp({
-          content: `Received the ${roles.join(", ")} role.`,
-          flags: MessageFlags.Ephemeral,
-        });
-      }
-
-      // TODO make sure to edit the original message
-    } catch (error) {
-      console.error("Error handling button interaction:", error);
-      await interaction.reply({
-        content: "Something went wrong while assigning your role.",
-        flags: MessageFlags.Ephemeral,
-      });
-    }
-  } else if (interaction.customId === "reasons") {
+  if (interaction.customId === "reasons") {
     let values = [...interaction.values];
     const archive_category = await guild.channels.fetch(ids.archive_channel);
+
+    await removePendingRole(member, guild);
 
     if (values.includes("Other")) {
       values = values.filter((v) => v !== "Other"); // remove the Other
@@ -92,5 +54,12 @@ export async function executeSelectMenu(interaction, guild, member) {
     });
 
     await interaction.channel.setParent(archive_category);
+  }
+}
+
+async function removePendingRole(member, guild) {
+  if (member.roles.cache.has(ids.pending_role)) {
+    const pending = await guild.roles.fetch(ids.pending_role);
+    await member.roles.add(pending);
   }
 }

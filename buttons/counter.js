@@ -10,8 +10,6 @@ export async function counter(interaction, guild, member) {
     ids.commissions_channel
   );
 
-  // TODO just make this a modal
-
   await interaction.reply({
     content: "Got it! Please state your counter offer.",
   });
@@ -27,5 +25,9 @@ export async function counter(interaction, guild, member) {
     await commissionsChannel.send(
       createCounterEmbed(sender, msg.content, interaction.channel)
     );
+
+    await interaction.followUp({
+      content: `Sent counter of: \`${msg.content}\``,
+    });
   });
 }
