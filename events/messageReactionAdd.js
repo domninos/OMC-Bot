@@ -2,6 +2,8 @@ import { Events, MessageFlags } from "discord.js";
 
 export const name = Events.MessageReactionAdd;
 
+// channel for select-roles: 1395006523255689367
+
 export async function execute(reaction, user) {
   if (user.bot) return;
 
@@ -19,10 +21,6 @@ export async function execute(reaction, user) {
 
     if (!member.roles.cache.has(role.id)) {
       member.roles.add(role).then(async () => {
-        await channel.send({
-          content: "You can now access NearChat channels.",
-          flags: MessageFlags.Ephemeral,
-        });
         console.log(`Added role to ${member.user.tag}`);
       });
     }

@@ -2,6 +2,8 @@ import { Events, MessageFlags } from "discord.js";
 
 export const name = Events.MessageReactionRemove;
 
+// channel for select-roles: 1395006523255689367
+
 export async function execute(reaction, user) {
   if (user.bot) return;
 
