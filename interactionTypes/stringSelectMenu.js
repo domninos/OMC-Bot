@@ -1,9 +1,9 @@
 import { MessageFlags, PermissionsBitField } from "discord.js";
 
-import { plugin_row_menu, plugin_row_btn } from "../util/botOptions.js";
+import { plugin_row_menu, plugin_row_btn, ids } from "../util/botOptions.js";
 import { createArchiveEmbed } from "../embeds/archive_embeds.js";
 
-export async function executeSelectMenu(interaction, guild) {
+export async function executeSelectMenu(interaction, guild, member) {
   if (interaction.customId === "plugins_menu") {
     try {
       const values = interaction.values;

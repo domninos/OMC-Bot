@@ -3,6 +3,7 @@ import { Events } from "discord.js";
 import { executeChatInputCommand } from "../interactionTypes/chatInputCommand.js";
 import { executeButton } from "../interactionTypes/button.js";
 import { executeModalSubmit } from "../interactionTypes/modalSubmit.js";
+import { executeSelectMenu } from "../interactionTypes/stringSelectMenu.js";
 
 export const name = Events.InteractionCreate;
 
@@ -15,11 +16,10 @@ export async function execute(interaction) {
   const guild = interaction.guild;
   const member = interaction.member;
 
-  // TODO just make this an emoji
-  // if (interaction.isStringSelectMenu()) {
-  //   await executeSelectMenu(interaction, guild);
-  //   return;
-  // }
+  if (interaction.isStringSelectMenu()) {
+    await executeSelectMenu(interaction, guild, member);
+    return;
+  }
 
   if (interaction.isButton()) {
     await executeButton(interaction, guild, member);
