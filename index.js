@@ -29,6 +29,7 @@ await load_events(client);
 
 client.login(process.env.DISCORD_TOKEN);
 
+// SIGINT i believe is called on exit/process exit
 process.on("SIGINT", () => {
   saveJSON();
   process.exit();

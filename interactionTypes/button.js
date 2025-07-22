@@ -1,4 +1,3 @@
-import { plugin_clear } from "../buttons/pluginsClear.js";
 import { refresh_license_func } from "../buttons/refreshLicense.js";
 import { comm_create } from "../buttons/commCreate.js";
 import { cancel_func } from "../buttons/cancel.js";
@@ -22,11 +21,6 @@ export async function executeButton(interaction, guild, member) {
 }
 
 const btn_opt = [
-  {
-    id: "plugins_clear",
-    starts: false,
-    func: plugin_clear,
-  },
   {
     id: "refresh_license",
     starts: true,
