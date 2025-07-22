@@ -13,7 +13,6 @@ export async function execute(reaction, user) {
 
   const emoji = reaction.emoji.name;
   const guild = reaction.message.guild;
-  const channel = reaction.message.channel;
 
   if (emoji === "📟") {
     const member = await guild.members.fetch(user.id);

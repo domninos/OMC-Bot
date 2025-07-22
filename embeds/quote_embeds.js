@@ -74,7 +74,7 @@ export function createCounterEmbed(sender, counter, commission_channel) {
 
     .addFields({
       name: "",
-      value: "If you like this counter offer, click the Accept button.",
+      value: "_If you like this counter offer, click the Accept button._",
       inline: false,
     });
 

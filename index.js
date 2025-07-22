@@ -24,6 +24,12 @@ import load_commands from "./loaders/command-loader.js";
 await load_commands(client);
 
 import load_events from "./loaders/event-loader.js";
+import { saveJSON } from "./data/jsonHelper.js";
 await load_events(client);
 
 client.login(process.env.DISCORD_TOKEN);
+
+process.on("SIGINT", () => {
+  saveJSON();
+  process.exit();
+});
