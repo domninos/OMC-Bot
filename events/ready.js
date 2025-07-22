@@ -1,6 +1,7 @@
 import { Events } from "discord.js";
 
 import { loadJSON, saveJSON } from "../data/jsonHelper.js";
+import { loadRoles } from "../util/botOptions.js";
 
 export const name = Events.ClientReady;
 export const once = true;
@@ -12,6 +13,9 @@ export async function execute(client) {
     console.log(
       `- ${guild.name} (ID: ${guild.id}) - ${guild.memberCount} members`
     );
+
+    loadRoles(guild);
+    console.log(`Loaded roles at '${guild.name}'`);
   });
 
   console.log(`${client.user.tag} has logged in!`);

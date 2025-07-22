@@ -1,4 +1,6 @@
-import { Events, MessageFlags } from "discord.js";
+import { Events } from "discord.js";
+
+import { roles } from "../util/botOptions.js";
 
 export const name = Events.MessageReactionAdd;
 
@@ -16,10 +18,11 @@ export async function execute(reaction, user) {
 
   if (emoji === "📟") {
     const member = await guild.members.fetch(user.id);
-    const role = guild.roles.cache.find((r) => r.name === "NearChat");
 
-    if (!member.roles.cache.has(role.id)) {
-      member.roles.add(role).then(async () => {
+    const role = roles.nearchat;
+
+    if (role && !member.roles.cache.has(role.id)) {
+      member.roles.add(role).then(() => {
         console.log(`Added role to ${member.user.tag}`);
       });
     }

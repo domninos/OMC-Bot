@@ -1,4 +1,5 @@
 import { Events } from "discord.js";
+import { loadRoles } from "../util/botOptions.js";
 
 export const name = Events.GuildCreate;
 export const once = true;
@@ -11,5 +12,8 @@ export async function execute(guild) {
       `Left unauthorized server: ${guild.name} (ID: ${guild.id}) - ${guild.memberCount} members`
     );
     guild.leave();
+  } else {
+    loadRoles();
+    console.log("Loaded roles.");
   }
 }

@@ -17,6 +17,7 @@ export async function executeModalSubmit(interaction, guild, member) {
     );
 
     const cmManager = await guild.roles.fetch(ids.commissions_manager_role);
+
     const budget = interaction.fields.getTextInputValue("budget");
     const time_frame = interaction.fields.getTextInputValue("time_frame");
     const description = interaction.fields.getTextInputValue("description");

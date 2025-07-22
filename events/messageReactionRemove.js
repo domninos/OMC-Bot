@@ -1,4 +1,6 @@
-import { Events, MessageFlags } from "discord.js";
+import { Events } from "discord.js";
+
+import { roles } from "../util/botOptions.js";
 
 export const name = Events.MessageReactionRemove;
 
@@ -17,14 +19,11 @@ export async function execute(reaction, user) {
 
   if (emoji === "📟") {
     const member = await guild.members.fetch(user.id);
-    const role = guild.roles.cache.find((r) => r.name === "NearChat");
 
-    if (member.roles.cache.has(role.id)) {
-      member.roles.remove(role).then(async () => {
-        await channel.send({
-          content: "Removed access to NearChat channels.",
-          flags: MessageFlags.Ephemeral,
-        });
+    const role = roles.nearchat;
+
+    if (role && member.roles.cache.has(role.id)) {
+      member.roles.remove(role).then(() => {
         console.log(`Removed NearChat from ${member.user.tag}`);
       });
     }

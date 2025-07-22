@@ -46,6 +46,21 @@ export const ids = {
   archive_channel: "1392123092981125273",
 };
 
+// STORE ROLES HERE
+export const roles = {};
+
+export function loadRoles(guild) {
+  roles.nearchat = guild.roles.cache.find((r) => r.name === "NearChat");
+  roles.pending = guild.roles.cache.find((r) => r.name === "Pending");
+  roles.customer = guild.roles.cache.find((r) => r.name === "Customer");
+  roles.developer = guild.roles.cache.find((r) => r.name === "Developer");
+  roles.commission_manager = guild.roles.cache.find(
+    (r) => r.name === "Commission Manager"
+  );
+
+  // LOAD OTHER ROLES HERE
+}
+
 export const plugin_menu = new StringSelectMenuBuilder()
   .setCustomId("plugins_menu")
   .setPlaceholder("Select plugins here!")
