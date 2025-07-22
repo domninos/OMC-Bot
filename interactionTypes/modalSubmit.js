@@ -1,5 +1,5 @@
 import { ChannelType, MessageFlags, PermissionsBitField } from "discord.js";
-import { ids } from "../util/botOptions.js";
+import { ids, roles } from "../util/botOptions.js";
 import {
   createCommissionEmbed,
   createFirstCommEmbeds,
@@ -16,7 +16,7 @@ export async function executeModalSubmit(interaction, guild, member) {
       ids.commissions_channel
     );
 
-    const cmManager = await guild.roles.fetch(ids.commissions_manager_role);
+    const cmManager = roles.commission_manager;
 
     const budget = interaction.fields.getTextInputValue("budget");
     const time_frame = interaction.fields.getTextInputValue("time_frame");

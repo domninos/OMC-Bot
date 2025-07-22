@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { loadRoles } from "../util/botOptions.js";
+import { loadCategories, loadChannels, loadRoles } from "../util/botOptions.js";
 
 export const name = Events.GuildCreate;
 export const once = true;
@@ -13,7 +13,11 @@ export async function execute(guild) {
     );
     guild.leave();
   } else {
+    loadChannels(guild);
+    loadCategories(guild);
     loadRoles(guild);
-    console.log(`Loaded roles at '${guild.name}'`);
+    console.log(
+      `\nLoaded roles, channels, and categories at '${guild.name}'\n`
+    );
   }
 }

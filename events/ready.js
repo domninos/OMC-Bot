@@ -1,13 +1,13 @@
 import { Events } from "discord.js";
 
-import { loadJSON, saveJSON } from "../data/jsonHelper.js";
-import { loadRoles } from "../util/botOptions.js";
+import { loadJSON } from "../data/jsonHelper.js";
+import { loadCategories, loadChannels, loadRoles } from "../util/botOptions.js";
 
 export const name = Events.ClientReady;
 export const once = true;
 
 export async function execute(client) {
-  console.log(`Bot is in ${client.guilds.cache.size} guilds:`);
+  console.log(`\nBot is in ${client.guilds.cache.size} guild(s):`);
 
   client.guilds.cache.forEach((guild) => {
     console.log(
@@ -15,7 +15,12 @@ export async function execute(client) {
     );
 
     loadRoles(guild);
-    console.log(`Loaded roles at '${guild.name}'`);
+    loadCategories(guild);
+    loadChannels(guild);
+
+    console.log(
+      `\nLoaded roles, categories, and channels at '${guild.name}'\n`
+    );
   });
 
   console.log(`${client.user.tag} has logged in!`);

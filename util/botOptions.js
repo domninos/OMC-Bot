@@ -40,11 +40,23 @@ export const reason_options = [
 export const ids = {
   commissions_channel: "1392457534371004467",
   commissions_category: "816649279062016001",
-  commissions_manager_role: "815158713429131265",
-  pending_role: "815158715871133736",
-  developer_role: "815158711415865344",
-  archive_channel: "1392123092981125273",
+  archive_category: "1392123092981125273",
 };
+
+// STORE CHANNELS HERE
+export const channels = {};
+
+export function loadChannels(guild) {
+  channels.commissions = guild.channels.cache.get(ids.commissions_channel);
+}
+
+// STORE CATEGORIES HERE
+export const categories = {};
+
+export function loadCategories(guild) {
+  categories.commissions = guild.channels.cache.get(ids.commissions_category);
+  categories.archive = guild.channels.cache.get(ids.archive_category);
+}
 
 // STORE ROLES HERE
 export const roles = {};
