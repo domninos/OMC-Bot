@@ -13,7 +13,7 @@ export async function execute(guild) {
     );
     guild.leave();
   } else {
-    loadRoles();
-    console.log("Loaded roles.");
+    loadRoles(guild);
+    console.log(`Loaded roles at '${guild.name}'`);
   }
 }
