@@ -46,7 +46,7 @@ export async function executeSelectMenu(interaction, guild, member) {
       return;
     }
 
-    await interaction.followUp(
+    await interaction.reply(
       createArchiveEmbed(member.user, values.map((v) => `• ${v}`).join("\n"))
     );
 

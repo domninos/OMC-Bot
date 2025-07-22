@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+
 import { ids } from "../util/botOptions.js";
 
 const __filename = "commissions.json";
@@ -24,7 +25,7 @@ export function saveJSON() {
   console.log(`Saved ${__filename}`);
 }
 
-export function storeCommission(messageId, threadId) {
+export async function storeCommission(messageId, threadId) {
   if (!jsonData[commission_channel]) {
     jsonData[commission_channel] = [];
   }

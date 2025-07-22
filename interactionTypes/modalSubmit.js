@@ -1,5 +1,5 @@
 import { ChannelType, MessageFlags, PermissionsBitField } from "discord.js";
-import { ids, roles } from "../util/botOptions.js";
+import { categories, channels, ids, roles } from "../util/botOptions.js";
 import {
   createCommissionEmbed,
   createFirstCommEmbeds,
@@ -9,25 +9,20 @@ import {
   createQuotingEmbed,
   createThreadEmbed,
 } from "../embeds/quote_embeds.js";
+import { storeCommission } from "../data/jsonHelper.js";
 
 export async function executeModalSubmit(interaction, guild, member) {
   if (interaction.customId === "commission-form") {
-    const commissionsChannel = await guild.channels.fetch(
-      ids.commissions_channel
-    );
-
-    const cmManager = roles.commission_manager;
-
     const budget = interaction.fields.getTextInputValue("budget");
     const time_frame = interaction.fields.getTextInputValue("time_frame");
     const description = interaction.fields.getTextInputValue("description");
 
     // create channel
-    const commissionsCategory = await guild.channels.fetch(
-      ids.commissions_category
-    );
+    const commissionsCategory = categories.commissions;
+    const commissionsChannel = channels.commissions;
 
-    // is the right cateogry
+    const cmManager = roles.commission_manager;
+
     const commissionChannel = await guild.channels.create({
       name: `commissions-${member.user.tag}`,
       type: ChannelType.GuildText,
@@ -45,14 +40,14 @@ export async function executeModalSubmit(interaction, guild, member) {
           ],
         },
         {
-          id: ids.commissions_manager_role,
+          id: roles.commission_manager.id,
           allow: [
             PermissionsBitField.Flags.ViewChannel,
             PermissionsBitField.Flags.SendMessages,
           ],
         },
         {
-          id: ids.developer_role,
+          id: roles.developer.id,
           allow: [
             PermissionsBitField.Flags.ViewChannel,
             PermissionsBitField.Flags.SendMessages,
@@ -66,8 +61,9 @@ export async function executeModalSubmit(interaction, guild, member) {
       flags: MessageFlags.Ephemeral,
     });
 
-    if (!member.roles.cache.has(ids.pending_role)) {
-      const pending = await guild.roles.fetch(ids.pending_role);
+    const pending = roles.pending;
+
+    if (!member.roles.cache.has(pending.id)) {
       await member.roles.add(pending);
     }
 
@@ -88,7 +84,7 @@ export async function executeModalSubmit(interaction, guild, member) {
           .startThread({
             name: "Commission Thread",
           })
-          .then((thread) => {
+          .then(async (thread) => {
             thread.send(
               createThreadEmbed(
                 interaction.user,
@@ -97,6 +93,8 @@ export async function executeModalSubmit(interaction, guild, member) {
                 description
               )
             );
+
+            await storeCommission(message.id, thread.id);
           });
       });
 
@@ -117,6 +115,7 @@ export async function executeModalSubmit(interaction, guild, member) {
     const [, , commission_channel] = interaction.customId.split("_");
 
     const commissionChannel = await guild.channels.fetch(commission_channel);
+
     const quote = interaction.fields.getTextInputValue("quoting");
 
     commissionChannel
