@@ -1,6 +1,6 @@
 import { MessageFlags, PermissionsBitField } from "discord.js";
 
-import { categories, ids, roles } from "../util/botOptions.js";
+import { categories, roles } from "../util/botOptions.js";
 import { createArchiveEmbed } from "../embeds/archive_embeds.js";
 
 export async function executeSelectMenu(interaction, guild, member) {

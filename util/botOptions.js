@@ -1,10 +1,4 @@
-import {
-  StringSelectMenuBuilder,
-  ButtonBuilder,
-  ActionRowBuilder,
-  ButtonStyle,
-} from "discord.js";
-
+// options on
 export const options = [
   {
     label: "NearChat",
@@ -14,6 +8,7 @@ export const options = [
   },
 ];
 
+// options for reasons on cancelling
 export const reason_options = [
   {
     label: "Too slow",
@@ -37,6 +32,7 @@ export const reason_options = [
   },
 ];
 
+// ids for specific channels and categories
 export const ids = {
   commissions_channel: "1392457534371004467",
   commissions_category: "816649279062016001",
@@ -72,38 +68,3 @@ export function loadRoles(guild) {
 
   // LOAD OTHER ROLES HERE
 }
-
-export const plugin_menu = new StringSelectMenuBuilder()
-  .setCustomId("plugins_menu")
-  .setPlaceholder("Select plugins here!")
-  .addOptions(options)
-  .setMinValues(1);
-
-export const plugin_clear_btn = new ButtonBuilder()
-  .setCustomId("plugins_clear")
-  .setLabel("Clear Roles")
-  .setStyle(ButtonStyle.Secondary);
-
-export const plugin_row_menu = new ActionRowBuilder().addComponents(
-  plugin_menu
-);
-export const plugin_row_btn = new ActionRowBuilder().addComponents(
-  plugin_clear_btn
-);
-
-const ticket_menu = new StringSelectMenuBuilder()
-  .setCustomId("tickets_menu")
-  .setPlaceholder("Select which service you want us to provide")
-  .addOptions(options); // TODO
-
-const ticket_clear_btn = new ButtonBuilder()
-  .setCustomId("plugins_clear")
-  .setLabel("Clear Roles")
-  .setStyle(ButtonStyle.Secondary); // TODO
-
-export const ticket_row_menu = new ActionRowBuilder().addComponents(
-  ticket_menu
-);
-export const ticket_row_btn = new ActionRowBuilder().addComponents(
-  ticket_clear_btn
-);

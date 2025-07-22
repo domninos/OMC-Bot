@@ -1,7 +1,5 @@
 import { Events } from "discord.js";
 
-import { plugin_row_menu, plugin_row_btn } from "../util/botOptions.js";
-
 export const name = Events.MessageCreate;
 
 export async function execute(message) {
@@ -20,9 +18,8 @@ export async function execute(message) {
       `This server is ${message.guild.name} and has ${message.guild.memberCount} members.`
     );
   } else if (command === "sendroles") {
-    await message.channel.send({
-      content: "Click to receive the role:",
-      components: [plugin_row_menu, plugin_row_btn],
+    message.channel.send(createRolesEmbed()).then((message) => {
+      message.react("📟"); // NearChat
     });
   }
 }
