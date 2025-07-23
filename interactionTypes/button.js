@@ -8,6 +8,8 @@ import { counter } from "../buttons/counter.js";
 import { counter_accept } from "../buttons/caccept.js";
 import { revoke_license_func } from "../buttons/revokeLicense.js";
 import { quote_func } from "../buttons/quote.js";
+import { send_reply_func } from "../buttons/send_reply.js";
+import { cancel_reply_func } from "../buttons/cancel_reply.js";
 
 export async function executeButton(interaction, guild, member) {
   for (const opt of btn_opt) {
@@ -70,5 +72,15 @@ const btn_opt = [
     id: "caccept",
     starts: true,
     func: counter_accept,
+  },
+  {
+    id: "send_reply",
+    starts: true,
+    func: send_reply_func,
+  },
+  {
+    id: "cancel_reply",
+    starts: false,
+    func: cancel_reply_func,
   },
 ];
