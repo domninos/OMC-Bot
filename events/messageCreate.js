@@ -5,6 +5,18 @@ export const name = Events.MessageCreate;
 export async function execute(message) {
   if (message.author.bot) return;
 
+  // check if thread
+  if (message.channel.isThread()) {
+    // check if a commission thread
+    if (message.channel.name.includes("Commission")) {
+      // is a commission thread, react
+
+      await message.react(""); // ✅
+
+      // await message.reactions.removeAll();
+    }
+  }
+
   let prefix = "=";
   let args = message.content.slice(prefix.length).trim().split("/s+/");
 

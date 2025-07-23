@@ -56,6 +56,71 @@ export function createTicketContainer() {
     flags: MessageFlags.IsComponentsV2,
   };
 }
+export function createCommissionEmbedDisabled(
+  commission_manager,
+  user,
+  budget,
+  time_frame,
+  description,
+  commissionChannel
+) {
+  const commissionEmbed = new EmbedBuilder()
+    .setColor("#00D4AA")
+    .setTitle("**New Commission**")
+    .setThumbnail(user.displayAvatarURL())
+
+    .addFields({
+      name: "**Customer**",
+      value: `${user}`,
+      inline: false,
+    })
+
+    .addFields(
+      {
+        name: "**Budget**",
+        value: `${budget}`,
+        inline: true,
+      },
+      {
+        name: "**Timeframe**",
+        value: `${time_frame}`,
+        inline: true,
+      }
+    )
+
+    .addFields({
+      name: "**Project Description**",
+      value: `${description}`,
+      inline: false,
+    })
+
+    .addFields({ name: "\u200b", value: "\u200b", inline: false })
+
+    .addFields({
+      name: "**Status**",
+      value: ":x:", // (should be OPEN, ACCEPTED, CLOSED)
+      inline: true,
+    })
+
+    .setFooter({
+      text: "OMC Commissions\t\t\t\t\t",
+    })
+    .setTimestamp();
+
+  const btn = new ButtonBuilder()
+    .setCustomId(`quote_${commissionChannel}`)
+    .setLabel("Send a Quote")
+    .setStyle(ButtonStyle.Primary)
+    .setDisabled(true);
+
+  const quote = new ActionRowBuilder().addComponents(btn);
+
+  return {
+    content: `{commission_manager}`, // replace with commission
+    embeds: [commissionEmbed],
+    components: [quote],
+  };
+}
 
 export function createCommissionEmbed(
   commission_manager,
@@ -108,12 +173,12 @@ export function createCommissionEmbed(
     })
     .setTimestamp();
 
-  const quote = new ActionRowBuilder().addComponents(
-    new ButtonBuilder()
-      .setCustomId(`quote_${commissionChannel}`)
-      .setLabel("Send a Quote")
-      .setStyle(ButtonStyle.Primary)
-  );
+  const btn = new ButtonBuilder()
+    .setCustomId(`quote_${commissionChannel}`)
+    .setLabel("Send a Quote")
+    .setStyle(ButtonStyle.Primary);
+
+  const quote = new ActionRowBuilder().addComponents(btn);
 
   return {
     content: `{commission_manager}`, // replace with commission

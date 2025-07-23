@@ -94,7 +94,14 @@ export async function executeModalSubmit(interaction, guild, member) {
               )
             );
 
-            await storeCommission(message.id, thread.id);
+            await storeCommission(
+              commissionChannel.id,
+              message.id,
+              thread.id,
+              budget,
+              time_frame,
+              description
+            );
           });
       });
 

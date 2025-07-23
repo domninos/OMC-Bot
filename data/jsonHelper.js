@@ -1,13 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { ids } from "../util/botOptions.js";
-
 const __filename = "commissions.json";
 const __dirname = path.dirname(__filename);
 const filePath = path.join(__dirname, "data", __filename);
 
-const commission_channel = ids.commissions_channel;
+// const commission_channel = ids.commissions_channel;
 
 let jsonData = {};
 
@@ -25,38 +23,71 @@ export function saveJSON() {
   console.log(`Saved ${__filename}`);
 }
 
-export async function storeCommission(messageId, threadId) {
-  if (!jsonData[commission_channel]) {
-    jsonData[commission_channel] = [];
+export async function storeCommission(
+  channelId,
+  messageId,
+  threadId,
+  budget_,
+  time_frame_,
+  description_
+) {
+  if (!jsonData[channelId]) {
+    jsonData[channelId] = {};
   }
 
-  jsonData[commission_channel].push({
-    commission_message: messageId,
+  jsonData[channelId] = {
+    commission_message_id: messageId,
     thread: threadId,
-  });
+    budget: budget_,
+    time_frame: time_frame_,
+    description: description_,
+  };
 
   scheduleSave();
 }
 
-export function getCommissions() {
-  return jsonData[commission_channel] || [];
+export function getCommissions(channelId) {
+  return jsonData[channelId] || {};
 }
 
-export function findCommissionByMessage(messageId) {
-  return (jsonData[commission_channel] || []).find(
+export function getThread(channelId) {
+  return jsonData[channelId].thread;
+}
+
+export function getCommissionMessage(channelId) {
+  return jsonData[channelId].commission_message_id;
+}
+
+export function getBudget(channelId) {
+  return jsonData[channelId].budget;
+}
+
+export function setBudget(channelId, budget) {
+  jsonData[channelId].budget = budget;
+}
+
+export function getTimeFrame(channelId) {
+  return jsonData[channelId].time_frame;
+}
+
+export function getDescription(channelId) {
+  return jsonData[channelId].description;
+}
+
+export function findCommissionByMessage(channelId, messageId) {
+  return (jsonData[channelId] || []).find(
     (entry) => entry.commission_message === messageId
   );
 }
 
-export function removeCommission(messageId) {
-  if (!jsonData[commission_channel]) return;
+export function removeCommission(channelId, messageId) {
+  if (!jsonData[channelId]) return;
 
-  jsonData[commission_channel] = jsonData[commission_channel].filter(
+  jsonData[channelId] = jsonData[channelId].filter(
     (entry) => entry.commission_message !== messageId
   );
 
-  if (jsonData[commission_channel].length === 0)
-    delete jsonData[commission_channel];
+  if (jsonData[channelId].length === 0) delete jsonData[channelId];
 
   scheduleSave();
 }

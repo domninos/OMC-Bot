@@ -17,7 +17,7 @@ export function createQuoteEmbed(quoting, sender) {
 
   const accept_counter = new ActionRowBuilder().setComponents(
     new ButtonBuilder()
-      .setCustomId(`accept_${sender.id}`)
+      .setCustomId(`accept_${sender.id}_${quoting}`)
       .setLabel("Accept")
       .setStyle(ButtonStyle.Primary),
     new ButtonBuilder()
