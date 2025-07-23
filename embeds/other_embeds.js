@@ -117,3 +117,49 @@ export function createRolesEmbed() {
     withResponse: true,
   };
 }
+
+export function sendReplyEmbed(sender, reply, commission_channel) {
+  const rep = new ContainerBuilder()
+    .setAccentColor(0x00d4aa)
+    .addTextDisplayComponents((textDisplay) =>
+      textDisplay.setContent(`**Send Reply?**`)
+    )
+    .addSeparatorComponents((separator) => separator)
+    .addTextDisplayComponents((textDisplay) =>
+      textDisplay.setContent(`\`${reply}\``)
+    );
+
+  // ADD BUTTONS TO SEND OR NOT
+  const send_cancel = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setCustomId(`send_reply_${commission_channel}_${reply}`)
+      .setLabel("Send")
+      .setStyle(ButtonStyle.Primary),
+    new ButtonBuilder()
+      .setCustomId(`cancel_reply`)
+      .setLabel("Cancel")
+      .setStyle(ButtonStyle.Danger)
+  );
+
+  return {
+    components: [rep, send_cancel],
+    flags: MessageFlags.IsComponentsV2,
+  };
+}
+
+export function sendReplyToCommision(sender, reply) {
+  const rep = new ContainerBuilder()
+    .setAccentColor(0x00d4aa)
+    .addTextDisplayComponents((textDisplay) =>
+      textDisplay.setContent(`**${sender}**:`)
+    )
+    .addSeparatorComponents((separator) => separator)
+    .addTextDisplayComponents((textDisplay) =>
+      textDisplay.setContent(`\`${reply}\``)
+    );
+
+  return {
+    components: [rep],
+    flags: MessageFlags.IsComponentsV2,
+  };
+}
