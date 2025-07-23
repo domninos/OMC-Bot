@@ -1,24 +1,37 @@
 import { Events } from "discord.js";
+import { sendReplyEmbed } from "../embeds/other_embeds.js";
+import { findCommissionByThreadId } from "../data/jsonHelper.js";
 
 export const name = Events.MessageCreate;
 
 export async function execute(message) {
   if (message.author.bot) return;
 
+  let content = message.content;
+
   // check if thread
   if (message.channel.isThread()) {
     // check if a commission thread
     if (message.channel.name.includes("Commission")) {
-      // is a commission thread, react
+      const commission_channel = findCommissionByThreadId(message.channel.id);
 
-      await message.react(""); // ✅
+      if (!commission_channel) {
+        message.channel.send(
+          "Could not find the commission channel for this thread."
+        );
+        return;
+      }
 
-      // await message.reactions.removeAll();
+      // await message.delete();
+
+      await message.channel.send(
+        sendReplyEmbed(message.author, content, commission_channel)
+      );
     }
   }
 
   let prefix = "=";
-  let args = message.content.slice(prefix.length).trim().split("/s+/");
+  let args = content.slice(prefix.length).trim().split("/s+/");
 
   const command = args.shift().toLowerCase();
 
