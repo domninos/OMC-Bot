@@ -80,6 +80,16 @@ export function findCommissionByMessage(channelId, messageId) {
   );
 }
 
+export function findCommissionByThreadId(threadId) {
+  for (const channelId in jsonData) {
+    if (jsonData[channelId].thread === threadId) {
+      return channelId;
+    }
+  }
+
+  return undefined;
+}
+
 export function removeCommission(channelId, messageId) {
   if (!jsonData[channelId]) return;
 
