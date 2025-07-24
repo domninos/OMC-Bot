@@ -56,12 +56,15 @@ export function createTicketContainer() {
     flags: MessageFlags.IsComponentsV2,
   };
 }
+
 export function createCommissionEmbedDisabled(
   commission_manager,
   user,
   budget,
   time_frame,
   description,
+  rush,
+  status,
   commissionChannel
 ) {
   const commissionEmbed = new EmbedBuilder()
@@ -69,11 +72,18 @@ export function createCommissionEmbedDisabled(
     .setTitle("**New Commission**")
     .setThumbnail(user.displayAvatarURL())
 
-    .addFields({
-      name: "**Customer**",
-      value: `${user}`,
-      inline: false,
-    })
+    .addFields(
+      {
+        name: "",
+        value: `${commissionChannel}`,
+        inline: false,
+      },
+      {
+        name: "**Customer**",
+        value: `${user}`,
+        inline: false,
+      }
+    )
 
     .addFields(
       {
@@ -88,17 +98,24 @@ export function createCommissionEmbedDisabled(
       }
     )
 
-    .addFields({
-      name: "**Project Description**",
-      value: `${description}`,
-      inline: false,
-    })
+    .addFields(
+      {
+        name: "**Project Description**",
+        value: `${description}`,
+        inline: false,
+      },
+      {
+        name: "Rush",
+        value: rush, // Yes, No, N/A
+        inline: false,
+      }
+    )
 
-    .addFields({ name: "\u200b", value: "\u200b", inline: false })
+    .addFields({ name: "", value: "\u200b", inline: false })
 
     .addFields({
       name: "**Status**",
-      value: ":x:", // (should be OPEN, ACCEPTED, CLOSED)
+      value: status,
       inline: true,
     })
 
@@ -108,7 +125,7 @@ export function createCommissionEmbedDisabled(
     .setTimestamp();
 
   const btn = new ButtonBuilder()
-    .setCustomId(`quote_${commissionChannel}`)
+    .setCustomId(`quote_${commissionChannel.id}`)
     .setLabel("Send a Quote")
     .setStyle(ButtonStyle.Primary)
     .setDisabled(true);
@@ -128,6 +145,8 @@ export function createCommissionEmbed(
   budget,
   time_frame,
   description,
+  rush,
+  status,
   commissionChannel
 ) {
   const commissionEmbed = new EmbedBuilder()
@@ -135,11 +154,18 @@ export function createCommissionEmbed(
     .setTitle("**New Commission**")
     .setThumbnail(user.displayAvatarURL())
 
-    .addFields({
-      name: "**Customer**",
-      value: `${user}`,
-      inline: false,
-    })
+    .addFields(
+      {
+        name: "",
+        value: `${commissionChannel}`,
+        inline: false,
+      },
+      {
+        name: "**Customer**",
+        value: `${user}`,
+        inline: false,
+      }
+    )
 
     .addFields(
       {
@@ -154,17 +180,24 @@ export function createCommissionEmbed(
       }
     )
 
-    .addFields({
-      name: "**Project Description**",
-      value: `${description}`,
-      inline: false,
-    })
+    .addFields(
+      {
+        name: "**Project Description**",
+        value: `${description}`,
+        inline: false,
+      },
+      {
+        name: "Rush",
+        value: rush, // Yes, No, N/A
+        inline: false,
+      }
+    )
 
-    .addFields({ name: "\u200b", value: "\u200b", inline: false })
+    .addFields({ name: "", value: "\u200b", inline: false })
 
     .addFields({
       name: "**Status**",
-      value: "✅", // (should be OPEN, ACCEPTED, CLOSED)
+      value: status,
       inline: true,
     })
 
@@ -174,7 +207,7 @@ export function createCommissionEmbed(
     .setTimestamp();
 
   const btn = new ButtonBuilder()
-    .setCustomId(`quote_${commissionChannel}`)
+    .setCustomId(`quote_${commissionChannel.id}`)
     .setLabel("Send a Quote")
     .setStyle(ButtonStyle.Primary);
 
@@ -199,7 +232,7 @@ export function createFirstCommEmbeds(budget, time_frame, description) {
     .setAccentColor(0x00d4aa)
     .addTextDisplayComponents((textDisplay) =>
       textDisplay.setContent(
-        "**Thank you for trusting OMC! Please wait for the Commission Managers.**"
+        "**Thank you for trusting OMC! Please wait for the Commission Managers for assistance.**"
       )
     )
     .addSeparatorComponents((separator) => separator)

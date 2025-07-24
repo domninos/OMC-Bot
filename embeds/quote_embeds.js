@@ -32,7 +32,7 @@ export function createQuoteEmbed(quoting, sender) {
   };
 }
 
-export function createThreadEmbed(user, budget, time_frame, description) {
+export function createThreadEmbed(user) {
   const embed = new EmbedBuilder()
     .setAuthor({
       name: `${user.tag}`,
@@ -41,11 +41,10 @@ export function createThreadEmbed(user, budget, time_frame, description) {
     .setColor("#00D4AA")
     .setTitle("**Commission**")
 
-    .addFields(
-      { name: "Budget:", value: `${budget}`, inline: true },
-      { name: "Time frame:", value: `${time_frame}`, inline: true },
-      { name: "Description:", value: `${description}`, inline: true }
-    )
+    .addFields({
+      name: "To reply to this commission, just send a message via this thread and you just have to click 'Accept'",
+      inline: true,
+    })
 
     .setTimestamp();
 
@@ -80,7 +79,7 @@ export function createCounterEmbed(sender, counter, commission_channel) {
 
   const accept = new ActionRowBuilder().setComponents(
     new ButtonBuilder()
-      .setCustomId(`caccept_${commission_channel.id}`)
+      .setCustomId(`caccept_${commission_channel.id}_${counter}`)
       .setLabel("Accept")
       .setStyle(ButtonStyle.Primary)
   );
