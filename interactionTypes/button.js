@@ -10,6 +10,7 @@ import { revoke_license_func } from "../buttons/revokeLicense.js";
 import { quote_func } from "../buttons/quote.js";
 import { send_reply_func } from "../buttons/send_reply.js";
 import { cancel_reply_func } from "../buttons/cancel_reply.js";
+import { rush_func } from "../buttons/rush.js";
 
 export async function executeButton(interaction, guild, member) {
   for (const opt of btn_opt) {
@@ -82,5 +83,10 @@ const btn_opt = [
     id: "cancel_reply",
     starts: false,
     func: cancel_reply_func,
+  },
+  {
+    id: "rush",
+    starts: true,
+    func: rush_func,
   },
 ];

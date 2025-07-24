@@ -10,6 +10,7 @@ import {
   createThreadEmbed,
 } from "../embeds/quote_embeds.js";
 import { storeCommission } from "../data/jsonHelper.js";
+import { sendRushEmbed } from "../embeds/other_embeds.js";
 
 export async function executeModalSubmit(interaction, guild, member) {
   if (interaction.customId === "commission-form") {
@@ -76,7 +77,9 @@ export async function executeModalSubmit(interaction, guild, member) {
           budget,
           time_frame,
           description,
-          commissionChannel.id
+          "N/A",
+          ":white_check_mark:",
+          commissionChannel
         )
       )
       .then(async (message) => {
@@ -85,14 +88,7 @@ export async function executeModalSubmit(interaction, guild, member) {
             name: "Commission Thread",
           })
           .then(async (thread) => {
-            thread.send(
-              createThreadEmbed(
-                interaction.user,
-                budget,
-                time_frame,
-                description
-              )
-            );
+            thread.send(createThreadEmbed(interaction.user));
 
             await storeCommission(
               commissionChannel.id,
@@ -100,7 +96,9 @@ export async function executeModalSubmit(interaction, guild, member) {
               thread.id,
               budget,
               time_frame,
-              description
+              description,
+              "N/A",
+              ":white_check_mark:"
             );
           });
       });
@@ -118,6 +116,8 @@ export async function executeModalSubmit(interaction, guild, member) {
     await commissionChannel.send(
       createFirstCommEmbeds(budget, time_frame, description)
     );
+
+    await commissionChannel.send(sendRushEmbed());
   } else if (interaction.customId.startsWith("quote")) {
     const [, , commission_channel] = interaction.customId.split("_");
 
