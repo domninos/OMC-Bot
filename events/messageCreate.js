@@ -16,13 +16,18 @@ export async function execute(message) {
       const commission_channel = findCommissionByThreadId(message.channel.id);
 
       if (!commission_channel) {
+        console.log(
+          "Could not find the commission channel for '%d'",
+          message.channel.id
+        );
+
         message.channel.send(
-          "Could not find the commission channel for this thread."
+          "Could not find the commission channel for this thread. Please contact the developer."
         );
         return;
       }
 
-      // await message.delete();
+      await message.delete();
 
       await message.channel.send(
         sendReplyEmbed(message.author, content, commission_channel)
