@@ -126,7 +126,7 @@ export function sendReplyEmbed(sender, reply, commission_channel) {
     )
     .addSeparatorComponents((separator) => separator)
     .addTextDisplayComponents((textDisplay) =>
-      textDisplay.setContent(`\`${reply}\``)
+      textDisplay.setContent(`${sender}: \`${reply}\``)
     );
 
   // ADD BUTTONS TO SEND OR NOT
@@ -160,6 +160,34 @@ export function sendReplyToCommision(sender, reply) {
 
   return {
     components: [rep],
+    flags: MessageFlags.IsComponentsV2,
+  };
+}
+
+export function sendRushEmbed() {
+  const rep = new ContainerBuilder()
+    .setAccentColor(0x00d4aa)
+    .addTextDisplayComponents(
+      (textDisplay) => textDisplay.setContent("Is this a rush project?"),
+      (textDisplay) =>
+        textDisplay.setContent(
+          "_You will be charged 16% more of your budget if rush._"
+        )
+    );
+
+  const rush = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setCustomId("rush_yes")
+      .setLabel("Yes")
+      .setStyle(ButtonStyle.Primary),
+    new ButtonBuilder()
+      .setCustomId("rush_no")
+      .setLabel("No")
+      .setStyle(ButtonStyle.Secondary)
+  );
+
+  return {
+    components: [rep, rush],
     flags: MessageFlags.IsComponentsV2,
   };
 }
