@@ -28,9 +28,6 @@ export async function counter_accept(interaction, guild, member) {
     content: `${member} has accepted your counter of \`${counter}\`. Please wait for further assistance. Thank you!`,
   });
 
-  // TODO also disable button on first message on main comm thread
-  // TODO also edit the first comm embed
-
   const commission_message_id = getCommissionMessage(commissionChannel.id);
 
   const commissionsChannel = channels.commissions;
@@ -65,4 +62,7 @@ export async function counter_accept(interaction, guild, member) {
       commissionChannel
     )
   );
+
+  // TODO also disable button on first message on main comm thread
+  // TODO also edit the first comm embed
 }

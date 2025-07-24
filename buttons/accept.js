@@ -63,4 +63,7 @@ export async function accept(interaction, guild, member) {
   );
 
   // TODO also edit the first comm embed
+
+  // TODO also disable button on first message on main comm thread
+  // TODO also edit the first comm embed
 }

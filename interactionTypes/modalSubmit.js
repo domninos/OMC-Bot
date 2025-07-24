@@ -110,7 +110,7 @@ export async function executeModalSubmit(interaction, guild, member) {
       .then((msg) => {
         setTimeout(() => {
           msg.delete().catch(console.error);
-        }, 3000); // 3 seconds
+        }, 2000); // 2 seconds
       });
 
     await commissionChannel.send(
@@ -132,7 +132,7 @@ export async function executeModalSubmit(interaction, guild, member) {
       .then((msg) => {
         setTimeout(() => {
           msg.delete().catch(console.error);
-        }, 3000);
+        }, 2000); // 2 seconds
       });
 
     await interaction.reply(createQuotingEmbed(quote));
