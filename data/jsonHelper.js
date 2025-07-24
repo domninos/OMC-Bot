@@ -29,7 +29,9 @@ export async function storeCommission(
   threadId,
   budget_,
   time_frame_,
-  description_
+  description_,
+  rush_,
+  status_
 ) {
   if (!jsonData[channelId]) {
     jsonData[channelId] = {};
@@ -41,8 +43,28 @@ export async function storeCommission(
     budget: budget_,
     time_frame: time_frame_,
     description: description_,
+    rush: rush_,
+    status: status_,
   };
 
+  scheduleSave();
+}
+
+export function getStatus(channelId) {
+  return jsonData[channelId].status;
+}
+
+export function setStatus(channelId, status) {
+  jsonData[channelId].status = status;
+  scheduleSave();
+}
+
+export function getRush(channelId) {
+  return jsonData[channelId].rush;
+}
+
+export function setRush(channelId, rush) {
+  jsonData[channelId].rush = rush;
   scheduleSave();
 }
 
@@ -64,6 +86,7 @@ export function getBudget(channelId) {
 
 export function setBudget(channelId, budget) {
   jsonData[channelId].budget = budget;
+  scheduleSave();
 }
 
 export function getTimeFrame(channelId) {
