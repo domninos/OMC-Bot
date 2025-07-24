@@ -2,9 +2,12 @@ import {
   getBudget,
   getCommissionMessage,
   getDescription,
+  getRush,
+  getStatus,
   getThread,
   getTimeFrame,
   setBudget,
+  setStatus,
 } from "../data/jsonHelper.js";
 import { createCommissionEmbedDisabled } from "../embeds/commission_embeds.js";
 import { channels, roles } from "../util/botOptions.js";
@@ -37,11 +40,14 @@ export async function accept(interaction, guild, member) {
   await thread.setLocked(true);
 
   setBudget(interaction.channel.id, quoting);
+  setStatus(interaction.channel.id, ":x:");
 
   const cmManager = roles.commission_manager;
   const budget = getBudget(interaction.channel.id);
   const time_frame = getTimeFrame(interaction.channel.id);
   const description = getDescription(interaction.channel.id);
+  const rush = getRush(interaction.channel.id);
+  const status = getStatus(interaction.channel.id);
 
   await commission_message.edit(
     createCommissionEmbedDisabled(
@@ -50,7 +56,11 @@ export async function accept(interaction, guild, member) {
       budget,
       time_frame,
       description,
-      interaction.channel.id
+      rush,
+      status,
+      interaction.channel
     )
   );
+
+  // TODO also edit the first comm embed
 }
